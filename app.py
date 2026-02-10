@@ -1,6 +1,3 @@
-import streamlit as st
-st.write("SECRETS FOUND:", list(st.secrets.keys()))
-st.stop()
 
 import streamlit as st
 from core.zerodha import get_kite
@@ -31,4 +28,5 @@ if st.button("▶ Execute Paper Trade"):
 if "trade" in st.session_state:
     trade = update_trade(st.session_state.trade, ltp)
     st.write(trade)
+
 
