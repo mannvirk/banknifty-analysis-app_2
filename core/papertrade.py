@@ -16,7 +16,10 @@ def create_trade(signal, price):
     }
 
 def update_trade(trade, ltp):
-    if trade["Status"] != "OPEN":
+    if trade is None:
+        return None
+
+    if trade.get("Status") != "OPEN":
         return trade
 
     if ltp <= trade["SL"]:
@@ -24,5 +27,5 @@ def update_trade(trade, ltp):
     elif ltp >= trade["Target"]:
         trade["Status"] = "TARGET HIT"
 
-    trade["PnL"] = (ltp - trade["Entry"]) * LOT_SIZE
+    trade["PnL"] = (ltp - trade["Entry"]) * 15
     return trade
