@@ -1,4 +1,3 @@
-
 import streamlit as st
 from core.zerodha import get_kite
 from core.option_chain import get_banknifty_chain
@@ -23,10 +22,17 @@ st.metric("PCR", pcr)
 ltp = chain.iloc[len(chain)//2]["LTP_CE"]
 
 if st.button("▶ Execute Paper Trade"):
-    st.session_state.trade = create_trade(bias, ltp)
+    trade = create_trade(bias, ltp)
+
+    if trade is None:
+        st.warning("⚠️ No valid trade signal. Market is Neutral.")
+    else:
+        st.session_state.trade = trade
+
 
 if "trade" in st.session_state:
     trade = update_trade(st.session_state.trade, ltp)
-    st.write(trade)
 
-
+    if trade:
+        st.session_state.trade = trade
+        st.write(trade)
