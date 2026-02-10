@@ -1,4 +1,8 @@
 import streamlit as st
+st.write("SECRETS FOUND:", list(st.secrets.keys()))
+st.stop()
+
+import streamlit as st
 from core.zerodha import get_kite
 from core.option_chain import get_banknifty_chain
 from core.oi_signals import oi_bias
@@ -27,3 +31,4 @@ if st.button("▶ Execute Paper Trade"):
 if "trade" in st.session_state:
     trade = update_trade(st.session_state.trade, ltp)
     st.write(trade)
+
